@@ -36,7 +36,6 @@ void buttonISR() {
   unsigned long interruptTime = millis();
   int currentButtonState = digitalRead(BUTTON_PIN);
   
-  // Обрабатываем только нажатие (переход с HIGH на LOW)
   if (currentButtonState == LOW && lastButtonState == HIGH) {
     if (interruptTime - lastInterruptTime > 200) {
       fastMode = !fastMode;
