@@ -1,0 +1,22 @@
+void setup() {
+    Serial.begin(9600);
+    lcd.init();
+    lcd.backlight();
+    setupKeyboardPins();
+    setupTimer1();
+
+    // Добавьте эту проверку перед настройкой прерывания
+    Serial.println("Проверка состояния D2 до прерывания:");
+    Serial.println(digitalRead(KEY_INT_PIN));
+    
+    // Настройка Внешнего прерывания (D2)
+    pinMode(KEY_INT_PIN, INPUT_PULLUP); // ДОБАВЬТЕ ЭТУ СТРОКУ!
+    attachInterrupt(digitalPinToInterrupt(KEY_INT_PIN), startScan, FALLING);
+
+    interrupts(); // Включаем глобальные прерывания
+
+    lcd.setCursor(0, 0);
+    lcd.print("System Ready");
+    
+    Serial.println("Система запущена");
+}
